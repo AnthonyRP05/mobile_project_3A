@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_project_3a.R
 
 
-class OP_Adapter(private var dataSet: List<Onepiece>) :
-    RecyclerView.Adapter<OP_Adapter.ViewHolder>() {
+class CryptoAdapter(private var dataSet: List<Coin>) :
+    RecyclerView.Adapter<CryptoAdapter.ViewHolder>() {
 
     /**
      * Provide a reference to the type of views that you are using
@@ -24,7 +24,7 @@ class OP_Adapter(private var dataSet: List<Onepiece>) :
         }
     }
 
-    fun updateList(list: List<Onepiece>){
+    fun updateList(list: List<Coin>){
         dataSet = list
         notifyDataSetChanged()
     }
@@ -33,7 +33,7 @@ class OP_Adapter(private var dataSet: List<Onepiece>) :
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.op_item, viewGroup, false)
+            .inflate(R.layout.crypto_item, viewGroup, false)
 
         return ViewHolder(view)
     }
@@ -43,8 +43,8 @@ class OP_Adapter(private var dataSet: List<Onepiece>) :
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        val onepiece :Onepiece = dataSet[position]
-        viewHolder.textView.text = onepiece.name
+        val coin :Coin = dataSet[position]
+        viewHolder.textView.text = coin.name
     }
 
     // Return the size of your dataset (invoked by the layout manager)
