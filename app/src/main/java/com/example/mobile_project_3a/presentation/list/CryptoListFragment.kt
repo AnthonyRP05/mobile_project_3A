@@ -5,14 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_project_3a.R
 import com.example.mobile_project_3a.databinding.FragmentFirstBinding
 import com.example.mobile_project_3a.presentation.api.CryptAPI
 import com.example.mobile_project_3a.presentation.api.CryptoResponse
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,7 +24,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 class CryptoListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private val adapter = CryptoAdapter(listOf())
+    private val adapter = CryptoAdapter(listOf(), ::onClikedCoin)
+
+
     private val layoutManager = LinearLayoutManager(context)
 
     private var _binding: FragmentFirstBinding? = null
@@ -73,15 +74,16 @@ class CryptoListFragment : Fragment() {
             override fun onFailure(call: Call<CryptoResponse>, t: Throwable) {
                 println("t'es dans on faillure")
             }
-
-
         })
 
     }
 
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun onClikedCoin(coin: Coin) {
+        findNavController().navigate(R.id.navToCryptoDetailFragment)
     }
 }
