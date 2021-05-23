@@ -9,14 +9,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_project_3a.R
-import com.example.mobile_project_3a.databinding.FragmentFirstBinding
-import com.example.mobile_project_3a.presentation.api.CryptAPI
-import com.example.mobile_project_3a.presentation.api.CryptoResponse
+import com.example.mobile_project_3a.databinding.FragmentCryptoListBinding
+import com.example.mobile_project_3a.presentation.Singleton
+import com.example.mobile_project_3a.presentation.api.CryptoListResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -29,7 +27,7 @@ class CryptoListFragment : Fragment() {
 
     private val layoutManager = LinearLayoutManager(context)
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentCryptoListBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -40,7 +38,7 @@ class CryptoListFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        _binding = FragmentCryptoListBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -55,24 +53,18 @@ class CryptoListFragment : Fragment() {
             adapter = this@CryptoListFragment.adapter
         }
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://pro-api.coinmarketcap.com/v1/cryptocurrency/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
 
-        val cryptApi: CryptAPI = retrofit.create(CryptAPI::class.java)
         val apiKey = "794ea8e7-4d80-4942-8171-4ca3b65d445c"
 
-        cryptApi.getCryptoList(apiKey).enqueue(object : Callback<CryptoResponse>{
-            override fun onResponse(call: Call<CryptoResponse>, response: Response<CryptoResponse>) {
-                if(response.isSuccessful ){
+        Singleton.cryptAPI.getCryptoList(apiKey).enqueue(object : Callback<CryptoListResponse>{
+            override fun onResponse(call: Call<CryptoListResponse>, response: Response<CryptoListResponse>) {
+                if(response.isSuccessful&& response.body() != null ){
                     val cryptoResponse = response.body()!!
-                    adapter.updateList(cryptoResponse.data)
+                    adapter.updateList(cryptoResponse.data.sortedBy { it.rank})
                 }
             }
 
-            override fun onFailure(call: Call<CryptoResponse>, t: Throwable) {
-                println("t'es dans on faillure")
+            override fun onFailure(call: Call<CryptoListResponse>, t: Throwable) {
             }
         })
 
