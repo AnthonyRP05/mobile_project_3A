@@ -6,6 +6,5 @@ import retrofit2.http.Query
 
 interface CryptAPI {
         @GET("map")
-        //suspend fun getCryptoList(@Query("key") key: String):CryptoResponse
-        fun getCryptoList(@Query("CMC_PRO_API_KEY") MC_PRO_API_KEY:String): Call<CryptoResponse>
+        fun getCryptoList(@Query("CMC_PRO_API_KEY") MC_PRO_API_KEY: String): Call<CryptoResponse>
 }
