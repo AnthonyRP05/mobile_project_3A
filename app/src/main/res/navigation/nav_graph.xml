@@ -9,7 +9,7 @@
         android:id="@+id/CryptoListFragment"
         android:name="com.example.mobile_project_3a.presentation.list.CryptoListFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_crypto_list">
+        tools:layout="@layout/fragment_first">
 
         <action
             android:id="@+id/navToCryptoDetailFragment"
@@ -19,10 +19,13 @@
         android:id="@+id/CryptoDetailFragment"
         android:name="com.example.mobile_project_3a.presentation.detail.CryptoDetailFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_crypto_detail">
+        tools:layout="@layout/fragment_second">
 
         <action
             android:id="@+id/navToCryptoListFragment"
             app:destination="@id/CryptoListFragment" />
+        <argument
+            android:name="numCrypto"
+            app:argType="string" />
     </fragment>
 </navigation>

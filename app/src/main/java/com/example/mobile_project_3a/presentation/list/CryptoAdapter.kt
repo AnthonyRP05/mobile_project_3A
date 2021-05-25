@@ -1,10 +1,12 @@
 package com.example.mobile_project_3a.presentation.list
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_project_3a.R
+import com.example.mobile_project_3a.presentation.detail.Detail
 
 
 class CryptoAdapter(private var dataSet: List<Coin>, val listener: ((Coin) -> Unit)? = null) :
@@ -24,7 +26,7 @@ class CryptoAdapter(private var dataSet: List<Coin>, val listener: ((Coin) -> Un
         }
     }
 
-    fun updateList(list: List<Coin>) {
+    fun updateList(list: List<Coin>){
         dataSet = list
         notifyDataSetChanged()
     }
@@ -43,10 +45,10 @@ class CryptoAdapter(private var dataSet: List<Coin>, val listener: ((Coin) -> Un
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        val coin: Coin = dataSet[position]
+        val coin :Coin = dataSet[position]
         val toDisplay = ("" + coin.rank + ". "+ coin.name)
         viewHolder.textView.text = toDisplay
-        viewHolder.itemView.setOnClickListener {
+        viewHolder.itemView.setOnClickListener{
             listener?.invoke(coin)
         }
     }
