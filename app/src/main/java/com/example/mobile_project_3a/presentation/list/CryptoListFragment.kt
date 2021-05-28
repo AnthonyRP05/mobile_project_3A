@@ -4,20 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.ProgressBar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_project_3a.R
 import com.example.mobile_project_3a.databinding.FragmentFirstBinding
-import com.example.mobile_project_3a.presentation.Singleton
-import com.example.mobile_project_3a.presentation.api.CryptoResponse
-import okhttp3.Request
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.io.IOException
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -26,7 +22,9 @@ class CryptoListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private val adapter = CryptoAdapter(listOf(), ::onClickedCoin)
-
+    private val viewModel : CryptoViewModel by viewModels()
+    private lateinit var load : ProgressBar
+    private lateinit var imageViewError: ImageView
 
     private val layoutManager = LinearLayoutManager(context)
 
@@ -50,35 +48,21 @@ class CryptoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        load = view.findViewById(R.id.crypto_loader)
+        imageViewError = view.findViewById(R.id.crypto_error)
+
         recyclerView = view.findViewById(R.id.crypto_recyclerview)
         recyclerView.apply {
             layoutManager = this@CryptoListFragment.layoutManager
             adapter = this@CryptoListFragment.adapter
         }
 
-        runCoin()
-    }
-
-    private fun runCoin() {
-
-        Singleton.cryptAPI.getCryptoList("794ea8e7-4d80-4942-8171-4ca3b65d445c").enqueue(object :
-            Callback<CryptoResponse> {
-            override fun onResponse(
-                call: Call<CryptoResponse>,
-                response: Response<CryptoResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val cryptoResponse = response.body()!!
-                    adapter.updateList(cryptoResponse.data.sortedBy { it.rank })
-                }
-            }
-            override fun onFailure(call: Call<CryptoResponse>, t: Throwable) {
-                println("And it's a failure")
-            }
+        viewModel.cryptoList.observe(viewLifecycleOwner, {
+            load.isVisible = it is CryptoLoader
+            imageViewError.isVisible = it is CryptoError
+            if(it is CryptoSuccess)adapter.updateList(it.cryptoList)
         })
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -90,18 +74,3 @@ class CryptoListFragment : Fragment() {
         findNavController().navigate(navigate)
     }
 }
-        /*
-        *Singleton.cryptAPI.getCryptoList(apiKey).enqueue(object : Callback<CryptoResponse> {
-            override fun onResponse(
-                call: Call<CryptoResponse>,
-                response: Response<CryptoResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val cryptoResponse = response.body()!!
-                    adapter.updateList(cryptoResponse.data.sortedBy { it.rank })
-                }
-            }
-            *  override fun onFailure(call: Call<CryptoResponse>, t: Throwable) {
-                println("And it's a failure")
-            }
-        * */

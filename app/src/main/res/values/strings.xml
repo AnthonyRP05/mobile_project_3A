@@ -2,11 +2,14 @@
     <string name="app_name">mobile_project_3A</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="first_fragment_label">List of cryptocurrencies sort by rank</string>
+    <string name="second_fragment_label">Description of this crypto-coin</string>
     <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="previous">Go to list</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="error">Please connect to Internet</string>
+    <string name="eth">ETH</string>
+    <string name="logo_currency">logo currency</string>
 </resources>
