@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +29,7 @@ class CryptoListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private val adapter = CryptoAdapter(listOf(), ::onClickedCoin)
-
+    private val viewModel : CryptoViewModel by viewModels()
 
     private val layoutManager = LinearLayoutManager(context)
 
@@ -56,27 +59,12 @@ class CryptoListFragment : Fragment() {
             adapter = this@CryptoListFragment.adapter
         }
 
-        runCoin()
-    }
-
-    private fun runCoin() {
-
-        Singleton.cryptAPI.getCryptoList("794ea8e7-4d80-4942-8171-4ca3b65d445c").enqueue(object :
-            Callback<CryptoResponse> {
-            override fun onResponse(
-                call: Call<CryptoResponse>,
-                response: Response<CryptoResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val cryptoResponse = response.body()!!
-                    adapter.updateList(cryptoResponse.data.sortedBy { it.rank })
-                }
-            }
-            override fun onFailure(call: Call<CryptoResponse>, t: Throwable) {
-                println("And it's a failure")
-            }
+        viewModel.cryptoList.observe(viewLifecycleOwner, Observer{
+            adapter.updateList(it)
         })
     }
+
+
 
 
 
@@ -90,18 +78,3 @@ class CryptoListFragment : Fragment() {
         findNavController().navigate(navigate)
     }
 }
-        /*
-        *Singleton.cryptAPI.getCryptoList(apiKey).enqueue(object : Callback<CryptoResponse> {
-            override fun onResponse(
-                call: Call<CryptoResponse>,
-                response: Response<CryptoResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val cryptoResponse = response.body()!!
-                    adapter.updateList(cryptoResponse.data.sortedBy { it.rank })
-                }
-            }
-            *  override fun onFailure(call: Call<CryptoResponse>, t: Throwable) {
-                println("And it's a failure")
-            }
-        * */
