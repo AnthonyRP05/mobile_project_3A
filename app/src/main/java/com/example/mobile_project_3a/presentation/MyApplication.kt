@@ -7,6 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 
 class MyApplication : Application() {
+    lateinit var numCryptoAsked : String
     companion object {
         @SuppressLint("StaticFieldLeak")
         var context: Context? = null

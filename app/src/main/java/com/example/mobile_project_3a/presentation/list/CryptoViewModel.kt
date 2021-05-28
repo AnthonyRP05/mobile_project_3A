@@ -12,7 +12,6 @@ import retrofit2.Response
 class CryptoViewModel : ViewModel() {
 
     val cryptoList : MutableLiveData<CryptoModel> = MutableLiveData()
-    //val cryptoListLimit = cryptoList.take(100)
 
     init {
         runAPI()
@@ -41,5 +40,4 @@ class CryptoViewModel : ViewModel() {
             }
         })
     }
-
 }
