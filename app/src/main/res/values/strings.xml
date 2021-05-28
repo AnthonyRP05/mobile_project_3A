@@ -2,7 +2,7 @@
     <string name="app_name">mobile_project_3A</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">List of cryptocurrencies sort by rank</string>
+    <string name="first_fragment_label">List of cryptocurrencies sorted by rank</string>
     <string name="second_fragment_label">Description of this crypto-coin</string>
     <string name="next">Next</string>
     <string name="previous">Go to list</string>
