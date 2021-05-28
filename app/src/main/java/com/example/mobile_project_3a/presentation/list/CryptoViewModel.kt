@@ -1,5 +1,6 @@
 package com.example.mobile_project_3a.presentation.list
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mobile_project_3a.presentation.Singleton
@@ -10,7 +11,7 @@ import retrofit2.Response
 
 class CryptoViewModel : ViewModel() {
 
-    val cryptoList : MutableLiveData<List<Coin>> = MutableLiveData()
+    val cryptoList : MutableLiveData<CryptoModel> = MutableLiveData()
     //val cryptoListLimit = cryptoList.take(100)
 
     init {
@@ -18,6 +19,8 @@ class CryptoViewModel : ViewModel() {
     }
 
     private fun runAPI() {
+
+        cryptoList.value = CryptoLoader
 
         Singleton.cryptAPI.getCryptoList("794ea8e7-4d80-4942-8171-4ca3b65d445c").enqueue(object :
             Callback<CryptoResponse> {
@@ -27,11 +30,14 @@ class CryptoViewModel : ViewModel() {
             ) {
                 if (response.isSuccessful) {
                     val cryptoResponse = response.body()!!
-                    cryptoList.value = cryptoResponse.data.sortedBy { it.rank }
+                    cryptoList.value = CryptoSuccess(cryptoResponse.data.sortedBy { it.rank })
                 }
+                else
+                    cryptoList.value = CryptoError
             }
             override fun onFailure(call: Call<CryptoResponse>, t: Throwable) {
-                println("And it's a failure")
+                Log.e("fail", "onFailure -> runAPI()")
+                cryptoList.value = CryptoError
             }
         })
     }
