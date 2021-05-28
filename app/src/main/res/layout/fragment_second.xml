@@ -19,6 +19,21 @@
         app:layout_constraintVertical_bias="0.133"
         tools:text="Ethereum" />
 
+    <ImageView
+        android:id="@+id/crypto_logo"
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="16dp"
+        tools:ignore="MissingConstraints" />
+<!--        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="35dp"
+        app:layout_constraintBottom_toTopOf="@id/button_second"
+        app:layout_constraintEnd_toStartOf="@id/crypto_detail_name"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.091"
+    />-->
+
     <Button
         android:id="@+id/button_second"
         android:layout_width="wrap_content"
