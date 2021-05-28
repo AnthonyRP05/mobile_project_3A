@@ -2,7 +2,7 @@
 Develop with Android Studio 4.2.1
 Test with android 11 R, SDK 31
 
-This is a simple application, displaying all the cryptocurrencies sorted by rank. You can select one and see is description which include current price, high & low within last 24h and a small description.
+This is a simple application, displaying all the cryptocurrencies sorted by rank. You can select one and see is description which include current price, high & low within last 24h and a small description. I used the CoinMarketCap api for this application which requires an API Key.
 
 The first list uses a RecyclerView and follow the MVVM architecture as Google recommend.
 The detail uses a simple text and image view with a "previous" button who guide us to the list of all cryptocurrencies
@@ -20,3 +20,4 @@ The detail uses a simple text and image view with a "previous" button who guide 
 
 If you have any advice about my code and what I should do to make it more effective for my TODO list, please let me know. 
 If you've enjoyed this project as much as I enjoyed doing it, please put a ⭐
+
