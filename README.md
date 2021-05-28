@@ -8,12 +8,15 @@ The first list uses a RecyclerView and follow the MVVM architecture as Google re
 The detail uses a simple text and image view with a "previous" button who guide us to the list of all cryptocurrencies
 
 
-### SCREEN ###
-
+### <b><i>[SCREEN](https://github.com/AnthonyRP05/mobile_project_3A/tree/master/Screenshots)</i></b>
 
 ### <b><i>TODO</i></b>
  - Add cache (I tried two methods, the one seen in TD that doesn't crash my application, and a method using ROOM but this one crashed my app at launch, due to lack of time I didn't have time to study it for a long time and I preferred to make a project without cache, but better coded)
  - Add a conversion option
  - Finger swipe navigation
  - create a Widget
+ - Make it watch friendly
  - and more
+
+If you have any advice about my code and what I should do to make it more effective for my TODO list, please let me know. 
+If you've enjoyed this project as much as I enjoyed doing it, please put a ⭐
